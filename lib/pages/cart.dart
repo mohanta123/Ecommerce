@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../widgets/fonts.dart';
 
 // Define a model class for the item
 class CartItem {
@@ -71,8 +72,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: defaultBackgroundColor,
@@ -85,8 +86,8 @@ class _CartScreenState extends State<CartScreen> {
         itemBuilder: (context, index) {
           final item = items[index];
           return SizedBox(
-            height: h * 0.14,
-            width: w,
+            height: deviceHeight * 0.16,
+            width: deviceWidth,
             child: Stack(
               children: [
                 Card(
@@ -107,77 +108,87 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 10),
+                    SizedBox(width: deviceWidth*0.05 ),
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.name,
-                                  style: TextStyle(color: Colors.black),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                item.name,
+                                style: TextFont.bold_TextStyle.copyWith(
+                                  fontSize: 13,
+                                  color: Colors.black,
                                 ),
-                                SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "₹${item.price}",
-                                      style: TextStyle(color: Colors.black),
+                              ),
+                              SizedBox(height: deviceHeight*0.01, ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "₹${item.price}",
+                                    style: TextFont.normal_TextStyle.copyWith(
+                                      fontSize: 14,
+                                      color: Colors.black,
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "${item.quantity}",
-                                      style: TextStyle(color: Colors.grey),
+                                  ),
+                                  SizedBox(width: deviceWidth*0.02),
+                                  Text(
+                                    "${item.quantity}",
+                                    style: TextFont.normal_TextStyle.copyWith(
+                                      fontSize: 14,
+                                      color: Colors.black54,
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      "${item.discount}% off",
-                                      style: TextStyle(color: Colors.green),
+                                  ),
+                                  SizedBox(width: deviceWidth*0.02),
+                                  Text(
+                                    "${item.discount}% off",
+                                    style: TextFont.normal_TextStyle.copyWith(
+                                      fontSize: 14,
+                                      color: Colors.green,
                                     ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          item.increaseQuantity();
-                                        });
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Icon(Icons.add),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: deviceHeight*0.01, ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        item.increaseQuantity();
+                                      });
+                                    },
+                                    child: Container(
+                                      height: deviceHeight*0.035,
+                                      width: deviceWidth*0.08,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
+                                      child: Icon(Icons.add),
                                     ),
-                                    const SizedBox(width: 10),
-                                    Text("${item.quantity}"),
-                                    const SizedBox(width: 10),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          item.decreaseQuantity();
-                                        });
-                                      },
-                                      child: Container(
-                                        height: 30,
-                                        width: 30,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Icon(Icons.remove),
+                                  ),
+                                  SizedBox(width: deviceWidth*0.03),
+                                  Text("${item.quantity}"),
+                                  SizedBox(width: deviceWidth*0.03),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        item.decreaseQuantity();
+                                      });
+                                    },
+                                    child: Container(
+                                      height: deviceHeight*0.035,
+                                      width: deviceWidth*0.08,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
+                                      child: Icon(Icons.remove),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
 

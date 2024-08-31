@@ -1,8 +1,10 @@
+import 'package:appman_ecommerce/pages/loginPage.dart';
+import 'package:appman_ecommerce/pages/signupPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'bottomNavigationBar.dart';
 import 'constants.dart';
-import 'pages/home.dart';
+
 import 'pages/login.dart';
 
 void main() {
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         switch (settings.name) {
           case 'home':
             return CupertinoPageRoute(
-              builder: (_) => const ButtonNavigation(),
+              builder: (_) => const LoginPage(),
               settings: settings,
             );
         }

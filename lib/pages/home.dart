@@ -1,4 +1,7 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+
+import 'dart:async';
+
+import 'package:appman_ecommerce/pages/subcategory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +11,7 @@ import '../animation/bouncing_effects.dart';
 import '../constants.dart';
 import '../data/data.dart';
 import '../widgets/drawer.dart';
+import '../widgets/fonts.dart';
 import 'cart.dart';
 import 'details.dart';
 
@@ -19,16 +23,43 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final PageController _pageController = PageController();
+  final int _bannerCount = 3;
+  int _currentIndex = 0;
+  Timer? _autoScrollTimer;
+
+  @override
+
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarDividerColor: Color(0xff212121),
       systemNavigationBarColor: Color(0xff212121),
       statusBarColor: defaultBackgroundColor,
+
     ));
     super.initState();
+    _startAutoScroll();
+  }
+  void dispose() {
+    _autoScrollTimer?.cancel();
+    super.dispose();
   }
 
+  void _startAutoScroll() {
+    _autoScrollTimer = Timer.periodic(Duration(seconds: 3), (timer) {
+      if (_currentIndex < _bannerCount - 1) {
+        _currentIndex++;
+      } else {
+        _currentIndex = 0;
+      }
+      _pageController.animateToPage(
+        _currentIndex,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
   int currentIndexBottomBar = 0;
   int currentIndexSwiperHome = 0;
 
@@ -49,9 +80,10 @@ class _HomeState extends State<Home> {
         preferredSize: const Size(double.infinity, 60),
         child: AppBar(
           elevation: 0,
-          title: const Text(
+          title:  Text(
             "Ecommerce",
-            style: TextStyle(
+            style: TextFont.bold_TextStyle.copyWith(
+              fontSize: 18,
               color: Colors.black,
             ),
           ),
@@ -72,137 +104,161 @@ class _HomeState extends State<Home> {
               const SizedBox(height: 20),
               marks(w),
               const SizedBox(height: 20),
-              Container(
-                width: w * 0.95,
-                height: 130,
-                decoration: const BoxDecoration(
-                  color: blackColor,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
-                      right: -30,
-                      child: Image.asset(
-                        "images/products/product0.png",
-                        height: 120,
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(20),
+            Column(
+              children: [
+                Container(
+                  height: 130,
+                  width: 350,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
+                    itemCount: _bannerCount,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        width: w * 0.95,
+                        height: 130,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
                         ),
-                        gradient: LinearGradient(
-                          colors: [
-                            const Color(0xff212121).withOpacity(1),
-                            const Color(0xff212121).withOpacity(0.8),
-                            const Color(0xff212121).withOpacity(0.7),
-                            const Color(0xff212121).withOpacity(0.5),
-                            const Color(0xff212121).withOpacity(0.0),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Positioned(
+                              right: -30,
+                              child: Image.asset(
+                                "images/products/product0.png",
+                                height: 120,
+
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(1),
+                                    Colors.black.withOpacity(0.8),
+                                    Colors.black.withOpacity(0.7),
+                                    Colors.black.withOpacity(0.5),
+                                    Colors.black.withOpacity(0.0),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              left: 10,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children:  [
+                                  Text(
+                                    "TODAY ONLY",
+                                    style: TextFont.bold_TextStyle.copyWith(
+                                      fontSize: 11,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  Text(
+                                    "80% OFF\nWITH CODE:",
+                                    style: TextFont.bold_TextStyle.copyWith(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 20,
+                              right: 20,
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  width: 120,
+                                  height: 30,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: customColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(36),
+                                    ),
+                                  ),
+                                  child:  Text(
+                                    "ECOMMERCE",
+                                    textAlign: TextAlign.center,
+                                    style: TextFont.bold_TextStyle.copyWith(
+                                      fontSize: 11,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      left: 10,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "TODAY ONLY",
-                            style: TextStyle(
-                              fontSize: 13,
-                              height: 1.3,
-                              color: Colors.white54,
-                            ),
-                          ),
-                          Text(
-                            "80% OFF\nWITH CODE:",
-                            style: TextStyle(
-                              fontSize: 22,
-                              height: 1.3,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 20,
-                      right: 20,
-                      child: Bouncing(
-                        onPress: () {},
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ...List.generate(
+                      _bannerCount,
+                          (index) => GestureDetector(
+                        onTap: () {
+                          _pageController.animateToPage(
+                            index,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
                         child: Container(
-                          width: 120,
-                          height: 30,
-                          alignment: Alignment.center,
-                          decoration: const BoxDecoration(
-                            color: customColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(36),
-                            ),
-                          ),
-                          child: const Text(
-                            "GCOMMERC",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            ),
-                          ),
+                          margin: const EdgeInsets.symmetric(horizontal: 2.5),
+                          width: 30,
+                          height: 5,
+                          color: _currentIndex != index
+                              ? Colors.white54
+                              : customColor,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...List.generate(
-                    3,
-                        (index) => GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 2.5),
-                        width: 30,
-                        height: 5,
-                        color: currentIndexSwiperHome != index
-                            ? Colors.white54
-                            : const Color(0xff494949),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              ],
+            ),
               const SizedBox(height: 20),
               SizedBox(
                 width: w * 0.95,
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children:  [
                       Text(
                         "Most Popular",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+                        style: TextFont.bold_TextStyle.copyWith(
+                          fontSize: 18,
                           color: Colors.black,
                         ),
                       ),
                       Text(
                         "View More",
-                        style: TextStyle(
-                          fontSize: 18,
+
+                        style: TextFont.normal_TextStyle.copyWith(
+                          fontSize: 15,
                           color: customColor,
                         ),
+
                       ),
                     ]),
               ),
@@ -345,16 +401,20 @@ class _HomeState extends State<Home> {
                                         Padding(
                                           padding:
                                           const EdgeInsets.only(left: 4),
-                                          child: Text(products[index]["name"]),
+                                          child: Text(products[index]["name"],  style: TextFont.bold_TextStyle.copyWith(
+                                            fontSize: 13,
+                                            color: Colors.black,
+                                          ),),
                                         ),
                                         const SizedBox(height: 5),
                                         Padding(
                                           padding:
                                           const EdgeInsets.only(left: 4),
                                           child: Text(
-                                            "${products[index]["price"].toString()} £",
-                                            style: const TextStyle(
-                                              fontSize: 19,
+                                            "${products[index]["price"].toString()} ₹",
+                                            style: TextFont.bold_TextStyle.copyWith(
+                                              fontSize: 15,
+                                              color: Colors.green,
                                             ),
                                           ),
                                         ),
@@ -397,7 +457,7 @@ class _HomeState extends State<Home> {
                     vertical: 5,
                   ),
                   child: Column(
-                    children: const [
+                    children:  [
                       CircleAvatar(
                         radius: 28,
                         backgroundColor: Colors.white,
@@ -409,7 +469,10 @@ class _HomeState extends State<Home> {
                       SizedBox(height: 10),
                       Text(
                         "Search",
-                        style: TextStyle(fontSize: 16),
+                        style: TextFont.bold_TextStyle.copyWith(
+                          fontSize: 11,
+                          color: Colors.black,
+                        ),
                       )
                     ],
                   ),
@@ -422,18 +485,27 @@ class _HomeState extends State<Home> {
                   ),
                   child: Column(
                     children: [
-                      CircleAvatar(
-                        radius: 28,
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.asset(brandes[index]["image"]),
+                      GestureDetector(
+
+                        child: CircleAvatar(
+                          radius: 28,
+                          backgroundColor: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Image.asset(brandes[index]["image"]),
+                          ),
                         ),
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Subcategory(brandes[index]["lable"])));
+                        },
                       ),
                       const SizedBox(height: 10),
                       Text(
                         brandes[index]["lable"],
-                        style: const TextStyle(fontSize: 16),
+                        style: TextFont.bold_TextStyle.copyWith(
+                          fontSize: 11,
+                          color: Colors.black,
+                        ),
                       )
                     ],
                   ),
@@ -483,16 +555,18 @@ class _HomeState extends State<Home> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:  [
                   Text(
                     "Send to:",
-                    style: TextStyle(
-                      color: Colors.black45,
+                    style: TextFont.normal_TextStyle.copyWith(
+                      fontSize: 12,
+                      color: Colors.grey,
                     ),
                   ),
                   Text(
                     "Bekashi, Algeria",
-                    style: TextStyle(
+                    style: TextFont.normal_TextStyle.copyWith(
+                      fontSize: 12,
                       color: Colors.black,
                     ),
                   ),
@@ -503,8 +577,8 @@ class _HomeState extends State<Home> {
           Bouncing(
             onPress: () {},
             child: Container(
-              width: 90,
-              height: 50,
+              width: 80,
+              height: 40,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 color: customColor,
@@ -512,9 +586,10 @@ class _HomeState extends State<Home> {
                   Radius.circular(36),
                 ),
               ),
-              child: const Text(
+              child:  Text(
                 "Change",
-                style: TextStyle(
+                style: TextFont.normal_TextStyle.copyWith(
+                  fontSize: 13,
                   color: Colors.white,
                 ),
               ),

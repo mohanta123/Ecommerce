@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../constants.dart';
+import '../widgets/fonts.dart';
+import 'login.dart';
+import 'loginPage.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -42,29 +45,26 @@ class _SettingsPageState extends State<SettingsPage> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                
                 const SizedBox(width: 12.0),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Daniell Zone',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.black,
+                      style: TextFont.bold_TextStyle.copyWith(
+                        fontSize: 15,
                       ),
                     ),
                     Text(
                       '@danielloro',
-                      style: TextStyle(
-                        color: Colors.black,
+                      style: TextFont.normal_TextStyle.copyWith(
+                        fontSize: 13,
                       ),
                     ),
                   ],
                 ),
-                Spacer(),
-                Icon(Icons.edit, color: Colors.black),
+                const Spacer(),
+                const Icon(Icons.edit, color: Colors.black),
               ],
             ),
           ),
@@ -75,8 +75,20 @@ class _SettingsPageState extends State<SettingsPage> {
           buildSettingsOption(Icons.language, 'Language'),
           buildSettingsOption(Icons.history, 'History'),
           buildSettingsOption(Icons.help, 'Help And Support'),
-          buildSettingsOption(Icons.brightness_6, 'White Mod', isSwitch: true),
-          buildSettingsOption(Icons.delete, 'Delete'),
+
+          // Debugging InkWell - Wrap with Container to check boundaries
+          Container(
+            color: Colors.transparent, // Add color to see the area
+            child: InkWell(
+              onTap: () {
+                // Test print to ensure tap is detected
+                print('Logout tapped');
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+              child: buildSettingsOption(Icons.delete, 'Logout'),
+            ),
+          ),
         ],
       ),
     );
@@ -84,16 +96,24 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget buildSettingsOption(IconData icon, String title, {bool isSwitch = false}) {
     return ListTile(
-      leading: Icon(icon, color:customColor),
-      title: Text(title),
+      leading: Icon(icon, color: customColor),
+      title: Text(
+        title,
+        style: TextFont.normal_TextStyle.copyWith(
+          fontSize: 15,
+        ),
+      ),
       trailing: isSwitch
           ? Switch(
         value: false,
         onChanged: (val) {},
         activeColor: Colors.yellow,
       )
-          : const Icon(Icons.arrow_forward, color:customColor),
-      onTap: () {},
+          : const Icon(Icons.arrow_forward, color: customColor),
+      onTap: () {
+
+        print('$title tapped');
+      },
     );
   }
 }

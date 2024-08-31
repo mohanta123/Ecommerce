@@ -1,6 +1,6 @@
-
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:appman_ecommerce/pages/cart.dart';
+import 'package:appman_ecommerce/pages/favorite.dart';
 import 'package:appman_ecommerce/pages/home.dart';
 import 'package:appman_ecommerce/pages/settingPage.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,26 +20,24 @@ class _ButtonNavigationState extends State<ButtonNavigation> {
   final List<Widget> _pages = [
     Home(),
     CartScreen(),
-    MainPosition(),
-    Account(),
+    Favorite(),
     SettingsPage(),
   ];
 
   final iconList = <IconData>[
     Icons.home_outlined,
     Icons.shopping_cart_checkout_outlined,
-    Icons.person_outline,
+    Icons.favorite,
     Icons.account_circle_outlined,
-    Icons.settings_outlined,
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentPageIndex],
-
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-        height: 80,
+        height: 60,
+        gapWidth: 10,
         itemCount: iconList.length,
         tabBuilder: (int index, bool isActive) {
           final color = isActive ? Colors.white : Colors.white54;
@@ -58,12 +56,10 @@ class _ButtonNavigationState extends State<ButtonNavigation> {
                 index == 0
                     ? "Home"
                     : index == 1
-                    ? "Cart"
-                    : index == 2
-                    ? "Main"
-                    : index == 3
-                    ? "Account"
-                    : "Settings",
+                        ? "Cart"
+                        : index == 2
+                            ? "Favorite"
+                            : "Settings",
                 maxLines: 1,
                 style: TextStyle(color: color),
               ),
@@ -91,17 +87,6 @@ class Account extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(child: Text("Account")),
-    );
-  }
-}
-
-class MainPosition extends StatelessWidget {
-  const MainPosition({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text("Main")),
     );
   }
 }

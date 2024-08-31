@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../animation/bouncing_effects.dart';
 import '../constants.dart';
-
+import '../widgets/fonts.dart';
 
 class DetailsPage extends StatefulWidget {
   final Map? data;
@@ -16,6 +16,7 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   int sizeSelected = 1;
   bool like = false;
+
   @override
   void initState() {
     if (widget.data!["isLiked"]) {
@@ -38,7 +39,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Navigator.pop(context, like);
             },
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               child: const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20,
@@ -50,16 +51,16 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
             ),
           ),
-          title: const Text(
+          title: Text(
             "ORDER DETAILS",
-            style: TextStyle(
-              color: Colors.black,
+            style: TextFont.bold_TextStyle.copyWith(
+              fontSize: 17,
             ),
           ),
           centerTitle: true,
           actions: [
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 10),
               child: GestureDetector(
                 onTap: () {
                   setState(() {
@@ -70,12 +71,12 @@ class _DetailsPageState extends State<DetailsPage> {
                   backgroundColor: Colors.white,
                   radius: 20,
                   child: like
-                      ? const Icon(
+                      ? Icon(
                           Icons.favorite,
                           color: Colors.red,
                           size: 22,
                         )
-                      : const Icon(
+                      : Icon(
                           Icons.favorite_outline,
                           color: Colors.black,
                           size: 22,
@@ -95,7 +96,7 @@ class _DetailsPageState extends State<DetailsPage> {
             height: h,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
+              physics: BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Hero(
@@ -109,35 +110,36 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 7),
+                    margin: EdgeInsets.symmetric(horizontal: 7),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.star,
                           color: Colors.amber,
                           size: 30,
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5),
                         Text(
                           widget.data!["stars"].toString(),
-                          style: const TextStyle(fontSize: 20),
+                          style: TextFont.bold_TextStyle.copyWith(
+                            fontSize: 18,
+                          ),
                         ),
-                        const SizedBox(width: 5),
+                        SizedBox(width: 5),
                         Text(
                           "(${widget.data!["reviews"].toString()} reviews)",
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextFont.normal_TextStyle.copyWith(
+                            fontSize: 15,
                           ),
                         ),
                       ],
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 14, vertical: 10),
+                    margin: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -147,62 +149,61 @@ class _DetailsPageState extends State<DetailsPage> {
                             Flexible(
                               child: Text(
                                 "${widget.data!["name"]}",
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
+                                style: TextFont.bold_TextStyle.copyWith(
+                                  fontSize: 19,
                                 ),
                               ),
                             ),
-                            const Icon(
-                              Icons.share,
-                              color: Colors.grey,
-                              size: 30,
+                            InkWell(
+                              child: Icon(
+                                Icons.share,
+                                color: Colors.grey,
+                                size: 30,
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         Row(
                           children: [
                             Flexible(
                               child: Text(
                                 "By -  ${widget.data!["store"]}",
-                                style: const TextStyle(
-                                  fontSize: 18,
+                                style: TextFont.normal_TextStyle.copyWith(
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            const Icon(
+                            SizedBox(width: 5),
+                            Icon(
                               Icons.verified,
                               color: Colors.blue,
                               size: 24,
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-                        const Text(
+                        SizedBox(height: 20),
+                        Text(
                           "DESCRIPTION :",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          style: TextFont.bold_TextStyle.copyWith(
+                            fontSize: 17,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10),
                         Text(
                           "${widget.data!["descripstion"]}",
-                          style: const TextStyle(
-                            fontSize: 18,
+                          style: TextFont.normal_TextStyle.copyWith(
+                            fontSize: 15,
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        const Text(
+                        SizedBox(height: 20),
+                        Text(
                           "SIZE :",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                          style: TextFont.bold_TextStyle.copyWith(
+                            fontSize: 15,
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: 20),
                         Row(
                           children: [
                             ...List.generate(
@@ -228,8 +229,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                   ),
                                   child: Text(
                                     "${widget.data!["size"][index]}",
-                                    style: TextStyle(
-                                      fontSize: 18,
+                                    style: TextFont.normal_TextStyle.copyWith(
+                                      fontSize: 15,
                                       color: sizeSelected == index
                                           ? Colors.white
                                           : Colors.black,
@@ -240,7 +241,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             )
                           ],
                         ),
-                        const SizedBox(height: 120),
+                        SizedBox(height: 120),
                       ],
                     ),
                   )
@@ -249,8 +250,8 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           Container(
-            width: w * 0.95,
-            height: 80,
+            width: w * 0.97,
+            height: 60,
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: blackColor,
@@ -258,10 +259,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 Radius.circular(36),
               ),
             ),
-            margin: const EdgeInsets.only(bottom: 10),
+            margin: EdgeInsets.only(bottom: 10),
             child: Row(
               children: [
-                const SizedBox(width: 20),
+                SizedBox(width: 20),
                 Expanded(
                   child: Container(
                     height: double.infinity,
@@ -270,19 +271,15 @@ class _DetailsPageState extends State<DetailsPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           " Price",
-                          style: TextStyle(
-                            color: Colors.white54,
-                            fontSize: 16,
-                          ),
+                          style: TextFont.bold_TextStyle
+                              .copyWith(fontSize: 14, color: Colors.white54),
                         ),
                         Text(
-                          "${widget.data!["price"].toString()} £",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 26,
-                          ),
+                          "${widget.data!["price"].toString()} ₹",
+                          style: TextFont.bold_TextStyle
+                              .copyWith(fontSize: 20, color: Colors.white),
                         ),
                       ],
                     ),
@@ -291,8 +288,8 @@ class _DetailsPageState extends State<DetailsPage> {
                 Bouncing(
                   onPress: () {},
                   child: Container(
-                    width: 160,
-                    height: 65,
+                    width: 100,
+                    height: 35,
                     alignment: Alignment.center,
                     decoration: const BoxDecoration(
                       color: customColor,
@@ -300,15 +297,14 @@ class _DetailsPageState extends State<DetailsPage> {
                         Radius.circular(36),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "ADD TO CART",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      style: TextFont.normal_TextStyle
+                          .copyWith(fontSize: 10, color: Colors.white),
                     ),
                   ),
                 ),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
               ],
             ),
           ),
