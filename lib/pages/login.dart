@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import '../animation/bouncing_effects.dart';
 import '../constants.dart';
 import '../data/data.dart';
+import '../widgets/fonts.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -129,13 +130,11 @@ class _LoginState extends State<Login> {
                 Container(
                   width: w,
                   color: Colors.transparent,
-                  child: const Text(
+                  child: Text(
                     "Change Your\nPerspective ln Style",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 35,
-                      height: 1.3,
-                      fontWeight: FontWeight.bold,
+                    style: TextFont.bold_TextStyle.copyWith(
+                      fontSize: 20,
                       color: Colors.white,
                     ),
                   ),
@@ -144,12 +143,11 @@ class _LoginState extends State<Login> {
                 Container(
                   width: w,
                   color: Colors.transparent,
-                  child: const Text(
-                    "Change The Quality Of Your Appearance\nWith GCOMMERC Now !",
+                  child: Text(
+                    "Change The Quality Of Your Appearance\nWith Shop Now !",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 18,
-                      height: 1.8,
+                    style: TextFont.normal_TextStyle.copyWith(
+                      fontSize: 14,
                       color: Colors.white54,
                     ),
                   ),
@@ -205,8 +203,8 @@ class _LoginState extends State<Login> {
                   children: [
                     const Spacer(),
                     Container(
-                      width: w * 0.9,
-                      height: 60,
+                      width: w * 0.8,
+                      height: 40,
                       alignment: Alignment.center,
                       decoration: const BoxDecoration(
                         color: customColor,
@@ -214,16 +212,16 @@ class _LoginState extends State<Login> {
                           Radius.circular(36),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Sign Up with Email",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
+                        style: TextFont.normal_TextStyle.copyWith(
+                          fontSize: 15,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
