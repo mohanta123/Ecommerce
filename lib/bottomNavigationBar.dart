@@ -3,9 +3,7 @@ import 'package:appman_ecommerce/pages/cart.dart';
 import 'package:appman_ecommerce/pages/favorite.dart';
 import 'package:appman_ecommerce/pages/home.dart';
 import 'package:appman_ecommerce/pages/settingPage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'constants.dart';
 
 class ButtonNavigation extends StatefulWidget {

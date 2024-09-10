@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants.dart';
 import '../widgets/fonts.dart';
-import 'login.dart';
+
 import 'loginPage.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -50,13 +50,13 @@ class _SettingsPageState extends State<SettingsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Daniell Zone',
+                      'Ananya Patra',
                       style: TextFont.bold_TextStyle.copyWith(
                         fontSize: 15,
                       ),
                     ),
                     Text(
-                      '@danielloro',
+                      'ananyapatra@gmail.com',
                       style: TextFont.normal_TextStyle.copyWith(
                         fontSize: 13,
                       ),
@@ -83,8 +83,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 // Test print to ensure tap is detected
                 print('Logout tapped');
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: buildSettingsOption(Icons.delete, 'Logout'),
             ),
@@ -94,7 +94,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget buildSettingsOption(IconData icon, String title, {bool isSwitch = false}) {
+  Widget buildSettingsOption(IconData icon, String title,
+      {bool isSwitch = false}) {
     return ListTile(
       leading: Icon(icon, color: customColor),
       title: Text(
@@ -105,13 +106,12 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       trailing: isSwitch
           ? Switch(
-        value: false,
-        onChanged: (val) {},
-        activeColor: Colors.yellow,
-      )
+              value: false,
+              onChanged: (val) {},
+              activeColor: Colors.yellow,
+            )
           : const Icon(Icons.arrow_forward, color: customColor),
       onTap: () {
-
         print('$title tapped');
       },
     );

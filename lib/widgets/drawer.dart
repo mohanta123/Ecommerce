@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+import 'fonts.dart';
+
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
 
@@ -13,13 +16,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white, // Change according to your design
+      backgroundColor: Colors.black,
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue, // Change according to your design
+              color: customColor,
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -30,23 +33,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     radius: 40,
                     backgroundImage: AssetImage("images/profile.jpg"),
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 6),
                   // Name
                   Text(
-                    'John Doe',
-                    style: TextStyle(
+                    'Ananya Patra',
+                    style: TextFont.bold_TextStyle.copyWith(
+                      fontSize: 16,
                       color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
-                  // Optional Email or any other detail
+                  SizedBox(height: 2),
+
                   Text(
-                    'john.doe@example.com',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 14,
+                    'ananyapatra@gmail.com',
+                    style: TextFont.normal_TextStyle.copyWith(
+                      fontSize: 13,
+                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -54,38 +56,50 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
+            leading: Icon(Icons.home,color: Colors.white,),
+            title: Text('Home',  style: TextFont.normal_TextStyle.copyWith(
+              fontSize: 15,
+              color: Colors.white70,
+            ),),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/home');
             },
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: Icon(Icons.settings,color: Colors.white,),
+            title: Text('Settings', style: TextFont.normal_TextStyle.copyWith(
+              fontSize: 15,
+              color: Colors.white70,
+            )),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/settings');
             },
           ),
           ListTile(
-            leading: Icon(Icons.contacts),
-            title: Text('Contact Us'),
+            leading: Icon(Icons.contacts,color: Colors.white,),
+            title: Text('Contact Us', style: TextFont.normal_TextStyle.copyWith(
+              fontSize: 15,
+              color: Colors.white70,
+            )),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.of(context).pushNamed('/contact');
             },
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Logout'),
+            leading: Icon(Icons.logout,color: Colors.white,),
+            title: Text('Logout', style: TextFont.normal_TextStyle.copyWith(
+              fontSize: 15,
+              color: Colors.white70,
+            )),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushNamed('/login'); // Changed to /login for logout action
+              Navigator.of(context).pushNamed('/login');
             },
           ),
-          // Add more ListTile widgets here for other drawer items
+
         ],
       ),
     );

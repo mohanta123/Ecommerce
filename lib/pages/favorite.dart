@@ -112,7 +112,7 @@ class _FavoriteState extends State<Favorite> {
                                   child: Icon(
                                     Icons.favorite,
                                     color: product["isLiked"]
-                                        ? Colors.red
+                                        ? Colors.white
                                         : Colors.red,
                                   ),
                                 ),

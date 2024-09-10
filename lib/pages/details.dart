@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../animation/bouncing_effects.dart';
 import '../constants.dart';
 import '../widgets/fonts.dart';
+import 'orderPage.dart';
 
 class DetailsPage extends StatefulWidget {
   final Map? data;
@@ -286,7 +287,14 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Bouncing(
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderPage(),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: 100,
                     height: 35,
@@ -298,12 +306,12 @@ class _DetailsPageState extends State<DetailsPage> {
                       ),
                     ),
                     child: Text(
-                      "ADD TO CART",
-                      style: TextFont.normal_TextStyle
-                          .copyWith(fontSize: 10, color: Colors.white),
+                      "Order",
+                      style: TextFont.normal_TextStyle.copyWith(fontSize: 14, color: Colors.white),
                     ),
                   ),
                 ),
+
                 SizedBox(width: 8),
               ],
             ),
